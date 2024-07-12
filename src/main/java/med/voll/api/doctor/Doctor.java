@@ -15,6 +15,7 @@ import med.voll.api.address.Address;
 @EqualsAndHashCode(of = "id")
 
 public class Doctor {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -35,6 +36,29 @@ public class Doctor {
         this.document = json.document();
         this.address = new Address(json.address());
         this.phonenumber = json.phonenumber();
+    }
+
+    public void updateData(DataUpdateDoctor doctorUpdate)
+    {
+        if (doctorUpdate.name() != null)
+        {
+            this.name = doctorUpdate.name();
+        }
+        if (doctorUpdate.email() != null)
+        {
+            this.email = doctorUpdate.email();
+        }
+
+        if (doctorUpdate.document() != null)
+        {
+            this.document = doctorUpdate.document();
+        }
+
+        if (doctorUpdate.address() != null)
+        {
+            this.address = doctorUpdate.address();
+        }
+
     }
 
 }

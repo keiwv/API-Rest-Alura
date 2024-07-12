@@ -19,6 +19,7 @@ public class Doctor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    private Boolean isactive;
     private String name;
     private String email;
     private String document;
@@ -30,6 +31,7 @@ public class Doctor {
 
 
     public Doctor(DataRegisterDoctor json) {
+        this.isactive = true;
         this.name = json.name();
         this.email = json.email();
         this.department = json.departament();
@@ -61,4 +63,7 @@ public class Doctor {
 
     }
 
+    public void desactiveDoctor() {
+        this.isactive = false;
+    }
 }

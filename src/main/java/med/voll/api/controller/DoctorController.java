@@ -2,9 +2,8 @@ package med.voll.api.controller;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import med.voll.api.address.DataAddress;
-import med.voll.api.doctor.*;
-import org.apache.coyote.Response;
+import med.voll.api.domain.address.DataAddress;
+import med.voll.api.domain.doctor.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,4 @@
-package med.voll.api.doctor;
-
-import med.voll.api.address.DataAddress;
+package med.voll.api.domain.doctor;
 
 public record DataReturnDoctor(Long id, String name, String department, String document, String email) {
 

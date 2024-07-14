@@ -7,5 +7,5 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 public interface userRepository extends JpaRepository<User, Long> {
-    UserDetails findByUsername(String username);
+    UserDetails findByUser(String user);
 }

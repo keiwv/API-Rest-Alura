@@ -15,7 +15,7 @@ public class Auth implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserDetails user = repositoryUser.findByUsername(username);
+        UserDetails user = repositoryUser.findByUser(username);
         if (user == null) {
             throw new UsernameNotFoundException("User not found with username: " + username);
         }

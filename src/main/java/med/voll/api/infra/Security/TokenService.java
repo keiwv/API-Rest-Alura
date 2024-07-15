@@ -1,8 +1,11 @@
 package med.voll.api.infra.Security;
 
 import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import med.voll.api.domain.users.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -33,8 +36,33 @@ public class TokenService
         }
     }
 
-    private Instant getDateExpired()
-    {
-        return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-05:00"));
+    public String getSubject(String token) {
+        if (token == null)
+        {
+            throw new RuntimeException();
+        }
+        DecodedJWT verifier = null;
+        try {
+            Algorithm algorithm = Algorithm.HMAC256(apiSecret);
+            verifier = JWT.require(algorithm)
+                    .withIssuer("voll med")
+                    .build()
+                    .verify(token);
+
+        } catch (JWTVerificationException exception) {
+            System.err.println("JWT verification failed: " + exception.getMessage());
+            throw new RuntimeException("Token verification failed", exception);
+        }
+
+        String subject = verifier != null ? verifier.getSubject() : null;
+        if (subject == null) {
+            throw new RuntimeException("Verifier invalid or subject is null");
+        }
+
+        return subject;
     }
+    private Instant getDateExpired() {
+        return LocalDateTime.now(ZoneOffset.UTC).plusHours(2).toInstant(ZoneOffset.UTC);
+    }
+
 }
